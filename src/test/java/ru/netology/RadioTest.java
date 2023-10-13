@@ -7,9 +7,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class RadioTest {
 
     private Radio radio = new Radio();
+    private Radio customRadio = new Radio(33);
 
     @Test
-    void shouldSwitchFromZeroToNine() {
+    void shouldSwitchFromZeroToDefaultMax() {
         radio.setRadioStationNumber(0);
         radio.prev();
 
@@ -20,12 +21,34 @@ class RadioTest {
     }
 
     @Test
-    void shouldSwitchFromNineToZero() {
+    void shouldSwitchFromDefaultMaxToZero() {
         radio.setRadioStationNumber(9);
         radio.next();
 
         int expected = 0;
         int actual = radio.getRadioStationNumber();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldSwitchFromCustomMaxToZero() {
+        customRadio.setRadioStationNumber(32);
+        customRadio.next();
+
+        int expected = 0;
+        int actual = customRadio.getRadioStationNumber();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldSwitchFromZeroToCustomMax() {
+        customRadio.setRadioStationNumber(0);
+        customRadio.prev();
+
+        int expected = 32;
+        int actual = customRadio.getRadioStationNumber();
 
         assertEquals(expected, actual);
     }
